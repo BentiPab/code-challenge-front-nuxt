@@ -71,7 +71,7 @@
 const CP_HOST = 1229;
 const ID_ARTICLE = 431103;
 
-//import QuoteOption from '~/components/QuoteOption.vue'
+// import QuoteOption from './components/QuoteOption.vue'
 
 export default {
 
@@ -89,9 +89,8 @@ export default {
 
   computed:{
     optionsOrder(){
-      /**
-       * Code
-      */
+      this.options.sort();
+      console.log(this.options)
       return this.options
     },
     txtSubmit(){

@@ -22,7 +22,7 @@
                 <input
                   id="postalCode"
                   name="postalCode"
-                  class="for m-control text-center"
+                  class="form-control text-center"
                   type="text"
                   v-validate.disable="'required|min:4|max:4'"
                   v-model="postalCode"
@@ -74,7 +74,7 @@ export default {
   computed: {
     optionsOrder() {
       this.options.sort((a, b) => {
-        a.Total < b.Total ? -1 : 1;
+        a.Total - b.Total;
       });
 
       return this.options;

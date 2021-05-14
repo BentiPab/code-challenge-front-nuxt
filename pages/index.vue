@@ -73,7 +73,10 @@ export default {
 
   computed: {
     optionsOrder() {
-      this.options.sort();
+      this.options.sort((a, b) => {
+        a.Total < b.Total ? -1 : 1;
+      });
+
       return this.options;
     },
     txtSubmit() {
@@ -126,30 +129,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index{
+.index {
   padding: 60px 0;
-  .title{
+  .title {
     margin-bottom: 30px;
   }
-  .detail{
+  .detail {
     padding: 15px;
-    h6{
+    h6 {
       margin-bottom: 30px;
     }
   }
-  .form{
+  .form {
     padding: 15px;
-    .error{
+    .error {
       display: block;
       font-size: 12px;
       margin-top: 7.5px;
       color: red;
     }
   }
-  .list{
+  .list {
     padding: 15px;
   }
-  
+
   .options {
     display: grid;
     grid-template-columns: 1 auto;
@@ -159,19 +162,19 @@ export default {
     column-gap: 1rem;
   }
 
-  @media screen and (min-width: 650px){
+  @media screen and (min-width: 650px) {
     .options {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
+      display: grid;
+      grid-template-columns: repeat(3, auto);
     }
   }
 
-  @media screen and (min-width: 450px) and (max-width: 650px){
-     .options {
-    display: grid;
+  @media screen and (min-width: 450px) and (max-width: 650px) {
+    .options {
+      display: grid;
 
-    grid-template-columns: repeat(2, auto);
-     }
+      grid-template-columns: repeat(2, auto);
+    }
   }
 }
 </style>

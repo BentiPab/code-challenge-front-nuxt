@@ -29,6 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .cuote-option {
   width: 100%;
   text-align: center;
@@ -44,7 +45,7 @@ export default {
   max-width: 200px;
   border-style: solid;
   border-radius: 15px;
-
+  
   .option-header {
     font-size: 2rem;
     color: white;
@@ -53,6 +54,7 @@ export default {
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
   }
+  
   .option-body,
   .option-header,
   .option-footer {

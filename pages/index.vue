@@ -4,51 +4,37 @@
       <div class="row justify-content-center">
         <div class="col-6">
           <div class="title">
-            <h3 class="h3 text-center">
-              Cotizador de envíos
-            </h3>
+            <h3 class="h3 text-center">Cotizador de envíos</h3>
           </div>
           <template v-if="optionsOrder.length > 0">
             <div class="text-center detail">
               <h6 class="h6 text-center">
                 Código postal: <strong>"{{ postalCode }}"</strong>
               </h6>
-              <button
-                class="btn btn-primary"
-                type="button"
-                @click="init()"
-              >
+              <button class="btn btn-primary" type="button" @click="init()">
                 Nueva cotización
               </button>
             </div>
           </template>
           <template v-else>
-            <form
-              class="text-center form"
-              @submit.prevent="send()"
-            >
+            <form class="text-center form" @submit.prevent="send()">
               <div class="form-group">
                 <input
                   id="postalCode"
                   name="postalCode"
-                  class="for  m-control text-center"
+                  class="for m-control text-center"
                   type="text"
                   v-validate.disable="'required|min:4|max:4'"
                   v-model="postalCode"
-                  placeholder="Ingresá el código postal"  v-validate="'required|email'"
+                  placeholder="Ingresá el código postal"
+                  v-validate="'required|email'"
                   data-vv-as="código postal"
-                >
-                <span
-                  v-if="errors.has('postalCode')"
-                  class="error"
-                >
-                  {{ errors.first('postalCode') }}
+                />
+                <span v-if="errors.has('postalCode')" class="error">
+                  {{ errors.first("postalCode") }}
                 </span>
               </div>
-              <button
-                class="btn btn-primary"
-                type="submit"
-              >
+              <button class="btn btn-primary" type="submit">
                 {{ txtSubmit }}
               </button>
             </form>
@@ -58,7 +44,7 @@
               v-for="(option, index) in optionsOrder"
               :key="`option-${index}`"
               :value="option"
-            /> 
+            />
           </div>
         </div>
       </div>
@@ -67,82 +53,76 @@
 </template>
 
 <script>
-
 const CP_HOST = 1229;
 const ID_ARTICLE = 431103;
 
-import QuoteOption from '~/components/QuoteOption.vue'
+import QuoteOption from "~/components/QuoteOption.vue";
 
 export default {
-
   components: {
     QuoteOption,
   },
 
-  data(){
+  data() {
     return {
       options: [],
-      postalCode: '',
+      postalCode: "",
       loading: false,
-    }
+    };
   },
 
-  computed:{
-    optionsOrder(){
+  computed: {
+    optionsOrder() {
       this.options.sort();
-      console.log(this.options)
-      return this.options
+      return this.options;
     },
-    txtSubmit(){
-      return this.loading ? 'Cotizando...' : 'Cotizar'
+    txtSubmit() {
+      return this.loading ? "Cotizando..." : "Cotizar";
     },
   },
 
-  async mounted(){
-    await this.init()
+  async mounted() {
+    await this.init();
   },
 
   methods: {
-    
-    async init(){
-      this.options = []
-      this.postalCode = ''
+    async init() {
+      this.options = [];
+      this.postalCode = "";
     },
 
-    async send(){
-
+    async send() {
       this.$validator.validateAll().then(async (result) => {
-
-        if (!result){
-          return
-        } else if(this.loading){
-          return
+        if (!result) {
+          return;
+        } else if (this.loading) {
+          return;
         } else {
-          this.loading = true
-          await fetch(`/api/item/${ID_ARTICLE}/cp/${this.postalCode}/cp_host/${CP_HOST}`)
-          .then((response) => {
-            return response.json()
-          })
-          .then((data) => {
-            this.options =  data
-          }).catch(function(e){
-            console.log(e);
-          });
-          this.loading = false
-
+          this.loading = true;
+          await fetch(
+            `/api/item/${ID_ARTICLE}/cp/${this.postalCode}/cp_host/${CP_HOST}`
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              this.options = data;
+            })
+            .catch(function (e) {
+              console.log(e);
+            });
+          this.loading = false;
         }
-      })
-    }
-
+      });
+    },
   },
 
-  head () {
+  head() {
     return {
-      title: 'Cotizador de envíos',
-    }
-  }
-
-}
+      title: "Cotizador de envíos",
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -169,13 +149,29 @@ export default {
   .list{
     padding: 15px;
   }
+  
   .options {
     display: grid;
-    grid-auto-flow: dense;
-    grid-template-columns: repeat(3, auto);
-    column-gap: 1rem;
+    grid-template-columns: 1 auto;
     align-content: center;
     justify-content: center;
+    grid-auto-flow: dense;
+    column-gap: 1rem;
+  }
+
+  @media screen and (min-width: 650px){
+    .options {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    }
+  }
+
+  @media screen and (min-width: 450px) and (max-width: 650px){
+     .options {
+    display: grid;
+
+    grid-template-columns: repeat(2, auto);
+     }
   }
 }
 </style>

@@ -31,7 +31,7 @@
                 <input
                   id="postalCode"
                   name="postalCode"
-                  class="form-control text-center"
+                  class="for  m-control text-center"
                   type="text"
                   v-validate.disable="'required|min:4|max:4'"
                   v-model="postalCode"
@@ -71,12 +71,12 @@
 const CP_HOST = 1229;
 const ID_ARTICLE = 431103;
 
-// import QuoteOption from './components/QuoteOption.vue'
+import QuoteOption from '~/components/QuoteOption.vue'
 
 export default {
 
   components: {
-    //QuoteOption,
+    QuoteOption,
   },
 
   data(){
@@ -168,6 +168,14 @@ export default {
   }
   .list{
     padding: 15px;
+  }
+  .options {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(3, auto);
+    column-gap: 1rem;
+    align-content: center;
+    justify-content: center;
   }
 }
 </style>

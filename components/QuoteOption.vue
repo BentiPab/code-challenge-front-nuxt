@@ -45,6 +45,10 @@ export default {
   max-width: 200px;
   border-style: solid;
   border-radius: 15px;
+  animation-name: appear;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
   
   .option-header {
     font-size: 2rem;
@@ -96,6 +100,18 @@ export default {
     100% {
       transform: scale(1);
     }
+  }
+
+  @keyframes appear {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
   }
 }
 </style>
